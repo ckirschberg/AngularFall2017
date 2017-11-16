@@ -15,4 +15,20 @@ export class BeanieComponent implements OnInit {
   ngOnInit() {
   }
 
+  // Optional type system
+  private onMySubmit(form) {
+    console.log(this.model);
+    console.log(form);
+
+    // Check if form is valid.
+    if (form.valid) {
+      // Save data to the server
+    }
+    else {
+      alert("Error, fix first");
+    }
+
+
+  }
+
 }

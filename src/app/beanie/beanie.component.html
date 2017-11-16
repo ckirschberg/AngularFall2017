@@ -1,13 +1,29 @@
-<form>
+<form #beanieForm="ngForm" (ngSubmit)="onMySubmit(beanieForm)">
   
   <div>
     <label for="color">Color</label>
     <input type="text" name="color" id="color" 
-      [(ngModel)]="model.color" required>
+      [(ngModel)]="model.color" required minlength="4" #spy #color="ngModel">
       
+      <div *ngIf="color.invalid && (color.dirty || color.touched)"
+        class="alert alert-danger">
+        <div *ngIf="color.errors.required">
+          Color is required
+        </div>
+        <div *ngIf="color.errors.minlength">
+          Must be atleast 4 characters
+        </div>
+      </div>
+
       TODO: remove this: {{model.color}}
+      <br>TODO: remove this: {{spy.className}}
   </div>
+  <!-- <div>
+    Error, color must be filled out.
+  </div> -->
 
-
-
+  <!-- [disabled]="!beanieForm.form.valid" -->
+  <button class="btn btn-primary" type="submit" >
+    Save
+  </button>
 </form>
