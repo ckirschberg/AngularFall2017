@@ -1,5 +1,6 @@
 import { Beanie } from './../beanie';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-beanie',
@@ -10,7 +11,13 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 export class BeanieComponent implements OnInit {
   model = new Beanie('Burgundy', 7, 'Cotton');
   
-  constructor() { }
+  constructor(private route: ActivatedRoute) {
+    route.params.subscribe(params => {
+      let id = params['id'];
+      console.log("id is:" + id);
+    });
+
+  }
 
   ngOnInit() {
   }

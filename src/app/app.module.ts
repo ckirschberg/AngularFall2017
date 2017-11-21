@@ -4,16 +4,35 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { BeanieComponent } from './beanie/beanie.component';
+import { Routes, RouterModule } from '@angular/router';
+import { BeanieListComponent } from './beanie-list/beanie-list.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
+const appRoutes: Routes = [
+  { path: 'beanies', component: BeanieListComponent },
+  { path: 'beanie/:id',      component: BeanieComponent },
+  
+  { path: '',
+    redirectTo: '/beanies', // Where to go when no route is specified
+    pathMatch: 'full'
+  },
+  { path: '**', component: PageNotFoundComponent }
+];
 
 @NgModule({
   declarations: [
     AppComponent,
-    BeanieComponent
+    BeanieComponent,
+    BeanieListComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    RouterModule.forRoot(
+      appRoutes,
+      // { enableTracing: true } // <-- debugging purposes only
+    )
   ],
   providers: [],
   bootstrap: [AppComponent]
