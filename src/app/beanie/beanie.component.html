@@ -3,7 +3,7 @@
   <div>
     <label for="color">Color</label>
     <input type="text" name="color" id="color" 
-      [(ngModel)]="model.color" required minlength="4" #spy #color="ngModel">
+      [(ngModel)]="beanie.color" required minlength="4" #spy #color="ngModel">
       
       <div *ngIf="color.invalid && (color.dirty || color.touched)"
         class="alert alert-danger">
@@ -15,7 +15,6 @@
         </div>
       </div>
 
-      TODO: remove this: {{model.color}}
       <br>TODO: remove this: {{spy.className}}
   </div>
   <!-- <div>

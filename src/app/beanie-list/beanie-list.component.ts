@@ -1,3 +1,4 @@
+import { DataService } from './../data.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from "@angular/router";
 
@@ -9,26 +10,20 @@ import { Router } from "@angular/router";
 })
 export class BeanieListComponent implements OnInit {
 
-  // I'll change this later, just demonstrating routing
-  // Homework: Move this dummy data, to a place where I can 
-  // access it both in the BeanieListComponent and also
-  // in the BeanieComponent.
-  temp = [
-    {myid: '1', color: 'Burgundy', size: 6, fabric: 'Cotton'},
-    {myid: '2', color: 'Blue', size: 3, fabric: 'Wool'},
-    {myid: '3', color: 'Yellow', size: 4, fabric: 'Diamond'},
-  ];
+  private temp;
 
   // Angular's DI - It will add the router object because I ask for it.
-  constructor(private router: Router) { 
+  constructor(private router: Router, private data: DataService) { 
+    this.temp = this.data.temp;
   }
 
   ngOnInit() {
   }
 
-  onBeanieClick(tempValue) {
-    console.log(tempValue);
-    this.router.navigate(['beanie/', tempValue.myid]);
+  onBeanieClick(beanie) {
+    // console.log(this.data.temp);
+    console.log(beanie);
+    this.router.navigate(['beanie/', beanie.id]);
   }
 
 }
