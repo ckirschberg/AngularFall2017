@@ -1,7 +1,7 @@
 import { DataService } from './../data.service';
 import { Beanie } from './../beanie';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: 'app-beanie',
@@ -13,7 +13,8 @@ export class BeanieComponent implements OnInit {
   // model = new Beanie('Burgundy', 7, 'Cotton');
   private beanie: Beanie;
   
-  constructor(private route: ActivatedRoute, private data: DataService) {
+  constructor(private route: ActivatedRoute, 
+    private data: DataService, private router: Router) {
     // Here we are retrieving the id from the url via the ActivatedRoute object
     route.params.subscribe(params => {
       let id = params['id'];
@@ -44,7 +45,7 @@ export class BeanieComponent implements OnInit {
   // Optional type system
   private onMySubmit(form) {
 
-    this.data.temp.push(this.beanie);
+    
 
     
     console.log("beanie", this.beanie);
@@ -54,13 +55,17 @@ export class BeanieComponent implements OnInit {
 
     // Check if form is valid.
     if (form.valid) {
-      // Save data to the server
+      if (this.beanie.id) { // edit
+        // this.data.temp.find(x => x.id === this.beanie.id) = this.beanie;
+      } else { // new
+        // Save data to the server
+        this.data.temp.push(this.beanie);
+      }
+      this.router.navigate(['beanies']);
     }
     else {
       alert("Error, fix first");
     }
-
-
+    
   }
-
 }
