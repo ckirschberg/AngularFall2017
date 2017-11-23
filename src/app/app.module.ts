@@ -11,7 +11,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 
 const appRoutes: Routes = [
   { path: 'beanies', component: BeanieListComponent },
-  { path: 'beanie/:id',      component: BeanieComponent },
+  { path: 'beanie/:id', component: BeanieComponent },
+  { path: 'beanie', component: BeanieComponent },
   
   { path: '',
     redirectTo: '/beanies', // Where to go when no route is specified

@@ -17,4 +17,7 @@ export class DataService {
     return this.temp.find(x => x.id === id);
   }
 
+  // public createNewBeanie(): Beanie {
+  //   return new Beanie('', undefined, '');
+  // }
 }

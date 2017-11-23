@@ -17,6 +17,18 @@
 
       <br>TODO: remove this: {{spy.className}}
   </div>
+  <div>
+      <label for="size">Size</label>
+      <input type="text" name="size" id="size" 
+        [(ngModel)]="beanie.size" required #size="ngModel">      
+  </div>
+  <div>
+      <label for="fabric">Fabric</label>
+      <input type="text" name="fabric" id="fabric" 
+        [(ngModel)]="beanie.fabric" required #fabric="ngModel">      
+  </div>
+
+
   <!-- <div>
     Error, color must be filled out.
   </div> -->

@@ -14,6 +14,7 @@ export class BeanieComponent implements OnInit {
   private beanie: Beanie;
   
   constructor(private route: ActivatedRoute, private data: DataService) {
+    // Here we are retrieving the id from the url via the ActivatedRoute object
     route.params.subscribe(params => {
       let id = params['id'];
       console.log(id);
@@ -26,14 +27,15 @@ export class BeanieComponent implements OnInit {
 
       // We have the id and the array of beanies
       // Here we specify the type Beanie to the local variable beanie.
-
-      this.beanie = this.data.getBeanie(id);
+      if (id) {
+        this.beanie = this.data.getBeanie(id);
+      } else {
+        this.beanie = new Beanie('', undefined, '');
+      }
 
       // Populate the view with the data in the returned beanie object.
 
     });
-
-
   }
 
   ngOnInit() {
@@ -41,7 +43,13 @@ export class BeanieComponent implements OnInit {
 
   // Optional type system
   private onMySubmit(form) {
-    console.log(this.model);
+
+    this.data.temp.push(this.beanie);
+
+    
+    console.log("beanie", this.beanie);
+    console.log("beanie array", this.data.temp);
+    // console.log(this.model);
     console.log(form);
 
     // Check if form is valid.
