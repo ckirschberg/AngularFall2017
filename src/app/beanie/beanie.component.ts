@@ -64,7 +64,7 @@ export class BeanieComponent implements OnInit {
       this.router.navigate(['beanies']);
     }
     else {
-      alert("Error, fix first");
+      // alert("Error, fix first");
     }
     
   }
