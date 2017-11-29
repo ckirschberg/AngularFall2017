@@ -1,3 +1,4 @@
+import { AuthGuard } from './auth-guard.service';
 import { DataService } from './data.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -11,8 +12,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 
 const appRoutes: Routes = [
   { path: 'beanies', component: BeanieListComponent },
-  { path: 'beanie/:id', component: BeanieComponent },
-  { path: 'beanie', component: BeanieComponent },
+  { path: 'beanie/:id', component: BeanieComponent, canActivate: [AuthGuard] },
+  { path: 'beanie', component: BeanieComponent, canActivate: [AuthGuard], },
   
   { path: '',
     redirectTo: '/beanies', // Where to go when no route is specified
@@ -36,7 +37,7 @@ const appRoutes: Routes = [
       // { enableTracing: true } // <-- debugging purposes only
     )
   ],
-  providers: [DataService],
+  providers: [DataService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
