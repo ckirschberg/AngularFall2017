@@ -10,7 +10,7 @@ import { Router } from "@angular/router";
 })
 export class BeanieListComponent implements OnInit {
 
-  private temp;
+  public temp;
 
   // Angular's DI - It will add the router object because I ask for it.
   constructor(private router: Router, private data: DataService) { 

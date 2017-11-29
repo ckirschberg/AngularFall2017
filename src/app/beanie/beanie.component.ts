@@ -11,7 +11,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 })
 export class BeanieComponent implements OnInit {
   // model = new Beanie('Burgundy', 7, 'Cotton');
-  private beanie: Beanie;
+  public beanie: Beanie;
   
   constructor(private route: ActivatedRoute, 
     private data: DataService, private router: Router) {
@@ -43,7 +43,7 @@ export class BeanieComponent implements OnInit {
   }
 
   // Optional type system
-  private onMySubmit(form) {
+  public onMySubmit(form) {
 
     
 
