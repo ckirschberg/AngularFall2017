@@ -29,7 +29,9 @@ export class BeanieComponent implements OnInit {
       // We have the id and the array of beanies
       // Here we specify the type Beanie to the local variable beanie.
       if (id) {
-        this.beanie = this.data.getBeanie(id);
+        // Here we learned that Object.assign can make a shallow copy of 
+        // an object.
+        this.beanie = Object.assign({}, this.data.getBeanie(id));
       } else {
         this.beanie = new Beanie('', undefined, '');
       }
