@@ -1,4 +1,6 @@
 <div *ngFor="let beanie of temp" (click)="onBeanieClick(beanie)"
   class="beanie-e2e">
+{{beanie._id}}
+
   {{beanie.color}} - {{beanie.size}} - {{beanie.fabric}}
 </div>
