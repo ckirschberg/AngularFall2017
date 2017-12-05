@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { DataService } from './../data.service';
 import { Beanie } from './../beanie';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
@@ -13,7 +14,7 @@ export class BeanieComponent implements OnInit {
   // model = new Beanie('Burgundy', 7, 'Cotton');
   public beanie: Beanie;
   
-  constructor(private route: ActivatedRoute, 
+  constructor(private route: ActivatedRoute, private http: HttpClient,
     private data: DataService, private router: Router) {
     // Here we are retrieving the id from the url via the ActivatedRoute object
     route.params.subscribe(params => {
@@ -51,7 +52,7 @@ export class BeanieComponent implements OnInit {
 
     
     console.log("beanie", this.beanie);
-    console.log("beanie array", this.data.temp);
+    // console.log("beanie array", this.data.temp);
     // console.log(this.model);
     console.log(form);
 
@@ -61,7 +62,13 @@ export class BeanieComponent implements OnInit {
         // this.data.temp.find(x => x.id === this.beanie.id) = this.beanie;
       } else { // new
         // Save data to the server
-        this.data.temp.push(this.beanie);
+        this.beanie.customerId = '1';
+        this.http.post('http://angular2api1.azurewebsites.net/api/internships/create', 
+        this.beanie, {responseType: 'text'}) // This api sends back text.
+        .subscribe(data => {
+          console.log(data);
+        })
+        // this.data.temp.push(this.beanie);
       }
       this.router.navigate(['beanies']);
     }
