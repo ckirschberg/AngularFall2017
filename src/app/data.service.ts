@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Beanie } from "./beanie";
 import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 
 @Injectable()
 export class DataService {
@@ -9,32 +11,36 @@ export class DataService {
   //   {id: '2', color: 'Blue', size: 3, fabric: 'Wool'} as Beanie,
   //   {id: '3', color: 'Yellow', size: 4, fabric: 'Diamond'} as Beanie,
   // ];
+  localData: Beanie[] = [];
 
   // DI - Angular will inject an httpclient object.
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    
+  }
 
   public test(): void {
     alert("Hello from dataservice");
   }
 
-  public getAll() {
-    this.http.get(
-      'http://angular2api1.azurewebsites.net/api/internships/getall')
-      .subscribe(data => {
-        // Run code when data comes back from the web service.
+  public getAllWithPipe(): Observable<Beanie[]> {
+    // pipe and map, taps into the result from the webservice and can change
+    // the data before passing it back inside an observable to whoever called it.
+    return this.http.get(
+      'http://angular2api1.azurewebsites.net/api/internships/getall').pipe(
+        map((response: any[]) => {
+          this.localData = response.filter(x => x.customerId === '1');
+          return this.localData;
+        }));
+  
+  }
 
-        // ...This code..
-        console.log("2");
-
-        // Return the data back to the component using observables.
-        return data;
-      });
-      // This code will run before...
-      console.log("1");
+  public getAll(): Observable<Beanie[]> {
+    return this.http.get(
+      'http://angular2api1.azurewebsites.net/api/internships/getall') as Observable<Beanie[]>;
   }
 
   public getBeanie(id: string): Beanie {
-    return undefined; //this.temp.find(x => x.id === id);
+    return this.localData.find(x => x._id === id);
   }
 
   // public createNewBeanie(): Beanie {

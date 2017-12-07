@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { DataService } from './../data.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from "@angular/router";
+import { Beanie } from "../beanie";
 
 @Component({
   selector: 'app-beanie-list',
@@ -18,14 +19,23 @@ export class BeanieListComponent implements OnInit {
     ,private http: HttpClient) { 
 
     // this.temp = this.data.getAll();
+    // this.temp = this.data.localData;
+    console.log("in component", this.temp);
   }
 
   ngOnInit() {
-    this.http.get(
-      'http://angular2api1.azurewebsites.net/api/internships/getall')
+
+    // this.data.getAll().subscribe(data => {
+    //   console.log("data here", data);
+    // });
+    
+
+    this.data.getAllWithPipe()
       .subscribe((data: any[]) => {
         // Run code when data comes back from the web service.
-        this.temp = data.filter(x => x.customerId === '1');
+        console.log(data);
+
+        this.temp = data;
         // ...This code..
         console.log("2");
       });
@@ -33,10 +43,27 @@ export class BeanieListComponent implements OnInit {
       console.log("1");
   }
 
-  onBeanieClick(beanie) {
+  public onBeanieDelete(event, beanie: Beanie): void {
+    // console.log(event);
+    event.stopPropagation();
+    // console.log("onDelete");
+
+    // Before server response
+
+    this.http.post('http://angular2api1.azurewebsites.net/api/internships/delete/' + beanie._id,
+      beanie, { responseType: 'text'} ).subscribe(data => {
+        // After a server response
+        this.temp = this.temp.filter(x => x._id !== beanie._id);
+      });
+
+      // Before server response
+  }
+
+  onBeanieClick(beanie: Beanie) {
+    // console.log("onClick");
     // console.log(this.data.temp);
-    console.log(beanie);
-    this.router.navigate(['beanie/', beanie.id]);
+    // console.log(beanie);
+    this.router.navigate(['beanie/', beanie._id]);
   }
 
 }

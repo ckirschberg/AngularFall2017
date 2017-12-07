@@ -19,7 +19,7 @@ export class BeanieComponent implements OnInit {
     // Here we are retrieving the id from the url via the ActivatedRoute object
     route.params.subscribe(params => {
       let id = params['id'];
-      console.log(id);
+      console.log("id: " + id);
       
       // Class exercise:
       // Access the dataservice object and retrieve the beanie object
@@ -58,11 +58,11 @@ export class BeanieComponent implements OnInit {
 
     // Check if form is valid.
     if (form.valid) {
-      if (this.beanie.id) { // edit
+      if (this.beanie._id) { // edit
         // this.data.temp.find(x => x.id === this.beanie.id) = this.beanie;
       } else { // new
         // Save data to the server
-        this.beanie.customerId = '1';
+        this.beanie.customerId = '1'
         this.http.post('http://angular2api1.azurewebsites.net/api/internships/create', 
         this.beanie, {responseType: 'text'}) // This api sends back text.
         .subscribe(data => {
